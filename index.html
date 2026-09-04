@@ -232,6 +232,66 @@ html.js [data-step="3"]{animation-delay:2120ms}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .stair-node,.stair-label,.stair-sub{transform-box:fill-box;transform-origin:center}
 
+/* ---------- photography ---------- */
+.ph{position:relative;overflow:hidden;background:#050505}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.86) contrast(1.04) brightness(.86)}
+.ph::after{content:"";position:absolute;inset:0;pointer-events:none}
+
+/* hero portrait: bleeds into the black on the left and underneath */
+.hero-grid{display:grid;grid-template-columns:1fr minmax(280px,.62fr);gap:clamp(2rem,5vw,4.5rem);align-items:end}
+.hero-portrait{position:relative;height:clamp(340px,50svh,540px);align-self:end}
+.hero-portrait img{width:100%;height:100%;object-fit:cover;object-position:54% 16%;filter:saturate(.8) contrast(1.05) brightness(.82)}
+.hero-portrait::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(to right,#000 0%,rgba(0,0,0,.55) 26%,rgba(0,0,0,0) 62%),
+    linear-gradient(to bottom,rgba(0,0,0,.6) 0%,rgba(0,0,0,0) 24%,rgba(0,0,0,0) 46%,rgba(0,0,0,.85) 84%,#000 100%),
+    linear-gradient(to left,#000 0%,rgba(0,0,0,0) 22%);
+}
+.hero-portrait::before{
+  content:"";position:absolute;top:14%;bottom:12%;right:0;width:1px;z-index:2;
+  background:linear-gradient(to bottom,transparent,rgba(200,162,74,.55),transparent);
+}
+
+/* wide cinematic band */
+.band{position:relative;margin-top:clamp(2.5rem,5vw,3.75rem);border:1px solid var(--hair-soft);border-radius:3px;overflow:hidden}
+.band img{aspect-ratio:16/9;width:100%;object-fit:cover;filter:saturate(.72) contrast(1.06) brightness(.62)}
+.band::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.25) 42%,rgba(4,12,9,.28) 100%);
+}
+.band-cap{
+  position:absolute;left:clamp(1.25rem,3vw,2.5rem);right:clamp(1.25rem,3vw,2.5rem);
+  bottom:clamp(1.25rem,3vw,2.2rem);z-index:2;
+}
+.band-cap p{font-family:"Bodoni Moda",serif;font-size:clamp(1.15rem,.9rem + 1.1vw,1.9rem);line-height:1.2;max-width:26ch;color:#F3EFE6}
+
+/* full-bleed break */
+.break{padding:0;position:relative}
+.break-media{position:relative;height:clamp(340px,58vh,560px)}
+.break-media img{width:100%;height:100%;object-fit:cover;object-position:center 22%;filter:saturate(.78) contrast(1.05) brightness(.55)}
+.break-media::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(0,0,0,.88) 0%,rgba(0,0,0,.5) 45%,rgba(0,0,0,.35) 100%),
+             linear-gradient(to bottom,#000 0%,transparent 22%,transparent 70%,#000 100%);
+}
+.break-copy{position:absolute;inset:0;display:flex;align-items:center;z-index:2}
+.break-copy blockquote{margin:0;width:var(--shell);margin-inline:auto}
+.break-copy p{
+  font-family:"Bodoni Moda",serif;font-weight:400;
+  font-size:clamp(1.5rem,1rem + 2.1vw,2.9rem);line-height:1.16;max-width:22ch;color:#F3EFE6;
+}
+.break-copy cite{
+  display:block;margin-top:1.4rem;font-family:"IBM Plex Sans",sans-serif;font-style:normal;
+  font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+}
+
+/* who it's for : heading beside a portrait */
+.fit-head{display:grid;grid-template-columns:1fr minmax(230px,.46fr);gap:clamp(2rem,5vw,4rem);align-items:center}
+.fit-portrait{position:relative;aspect-ratio:4/5;border:1px solid var(--hair-soft);border-radius:3px;overflow:hidden}
+.fit-portrait img{width:100%;height:100%;object-fit:cover;object-position:center 18%;filter:saturate(.8) contrast(1.04) brightness(.8)}
+.fit-portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 45%)}
+
 /* ---------- thesis ---------- */
 .thesis-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.25rem,3vw,2.5rem);margin-top:3.4rem}
 .panel{
@@ -392,6 +452,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 
 /* ---------- responsive ---------- */
 @media (max-width:1080px){
+  .fit-head{grid-template-columns:1fr .8fr}
   .pillars{grid-template-columns:repeat(2,1fr)}
   .aud{grid-template-columns:repeat(2,1fr)}
   .cta-grid{grid-template-columns:1fr}
@@ -416,6 +477,15 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
   .brand img{width:34px}
   .nav-links{top:70px}
   .thesis-grid{grid-template-columns:1fr}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-portrait{display:none}
+  .fit-head{grid-template-columns:1fr}
+  .fit-portrait{display:none}
+  .break-media{height:clamp(320px,54vh,440px)}
+  .break-media img{object-position:center 10%}
+  .break-media::after{background:linear-gradient(to bottom,rgba(0,0,0,.5) 0%,rgba(0,0,0,.12) 26%,rgba(0,0,0,.9) 74%,#000 100%)}
+  .break-copy{align-items:flex-end;padding-bottom:clamp(1.5rem,4vw,2.25rem)}
+  .break-copy p{max-width:26ch}
   .nums{grid-template-columns:repeat(2,1fr);gap:2.2rem 1.5rem}
   .lrow,.step{grid-template-columns:1fr;gap:1.1rem}
   .step-n{padding-top:0}
@@ -479,7 +549,8 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 
 <!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="hero-copy">
+  <div class="hero-copy hero-grid">
+    <div>
     <span class="tag">A done-with-you ecosystem</span>
     <h1>Scale your brand to five, six, and seven figures.</h1>
     <p class="lede">Operation: Millionaire builds the systems that attract clients, convert leads, and create consistent revenue &mdash; without burnout. You get a full team. Not just advice.</p>
@@ -488,6 +559,10 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
       </a>
       <a class="btn" href="#services">See what's included</a>
+    </div>
+    </div>
+    <div class="ph hero-portrait">
+      <img src="photo-strategy.jpg" alt="The founder of Operation: Millionaire reviewing a growth strategy" width="669" height="1024" fetchpriority="high">
     </div>
   </div>
 
@@ -554,6 +629,11 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
         </ul>
       </div>
     </div>
+
+    <figure class="ph band reveal" style="margin-inline:0">
+      <img src="photo-team.jpg" alt="The Operation: Millionaire team working through a client's growth plan" width="1024" height="576" loading="lazy">
+      <figcaption class="band-cap"><p>Your advisor and up to five assistants, working inside your business.</p></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -738,11 +818,30 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
   </div>
 </section>
 
+<!-- ============ BREAK ============ -->
+<section class="break" aria-label="Brand statement">
+  <div class="ph break-media">
+    <img src="photo-arrival.jpg" alt="" width="1024" height="576" loading="lazy">
+  </div>
+  <div class="break-copy">
+    <blockquote>
+      <p>Strategy, execution, creative direction, and systems &mdash; so you are not doing this alone.</p>
+      <cite>Operation: Millionaire</cite>
+    </blockquote>
+  </div>
+</section>
+
 <!-- ============ FIT ============ -->
 <section id="fit">
   <div class="shell">
-    <div class="reveal">
-      <h2 style="max-width:20ch">Built for owners who are done doing it alone.</h2>
+    <div class="fit-head reveal">
+      <div>
+        <h2 style="max-width:20ch">Built for owners who are done doing it alone.</h2>
+        <p class="lede" style="margin-top:1.5rem">If you are already building and only need the machine around it, this is where you fit.</p>
+      </div>
+      <div class="ph fit-portrait">
+        <img src="photo-vantage.jpg" alt="" width="900" height="1168" loading="lazy">
+      </div>
     </div>
     <div class="aud stagger">
       <div class="aud-card">
