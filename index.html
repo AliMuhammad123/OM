@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operation: Millionaire — a done-with-you ecosystem for entrepreneurs</title>
+<meta name="description" content="Operation: Millionaire is a done-with-you ecosystem. Strategy, creative direction, marketing execution and systems, delivered by a dedicated team that builds inside your business.">
+<link rel="icon" href="om-crest.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   OPERATION: MILLIONAIRE
+   Palette : true black field, malachite panels, metallic gold ramp
+   Type    : Bodoni Moda (display) / IBM Plex Sans (functional)
+   ============================================================ */
+
+:root{
+  --void:#000000;
+  --malachite:#071711;
+  --malachite-2:#0B1F17;
+  --char:#0A0A09;
+
+  --gold:#C8A24A;
+  --gold-hi:#F5E4AE;
+  --gold-deep:#7E601C;
+  --emerald:#0F8A59;
+  --emerald-hi:#1FCB86;
+
+  --bone:#F0ECE3;
+  --muted:#97938A;
+  --muted-dim:#6B6860;
+
+  --hair:rgba(200,162,74,.20);
+  --hair-soft:rgba(200,162,74,.10);
+
+  --metal:linear-gradient(104deg,#7E601C 0%,#C8A24A 22%,#F5E4AE 40%,#C8A24A 56%,#F5E4AE 74%,#8A6A22 100%);
+
+  --ease-out-soft:cubic-bezier(.22,1,.36,1);
+  --ease-in-out-soft:cubic-bezier(.65,0,.35,1);
+  --dur-micro:200ms;
+  --dur-reveal:760ms;
+  --dur-ambient:34s;
+  --stagger:90ms;
+
+  --shell:min(1240px,100% - 3rem);
+  --gut:clamp(1.25rem,4vw,2.5rem);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--void);
+  color:var(--bone);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:300;
+  font-size:clamp(.98rem,.94rem + .18vw,1.075rem);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:rgba(200,162,74,.28);color:#fff}
+
+/* ---------- ambient : one grid + two slow orbs ---------- */
+.ambient{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.ambient .grid{
+  position:absolute;inset:-10%;
+  background-image:
+    linear-gradient(to right,rgba(200,162,74,.055) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(200,162,74,.055) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(72% 60% at 50% 32%,#000 12%,transparent 78%);
+  mask-image:radial-gradient(72% 60% at 50% 32%,#000 12%,transparent 78%);
+  animation:grid-pan 78s linear infinite;
+}
+@keyframes grid-pan{from{background-position:0 0,0 0}to{background-position:72px 72px,72px 72px}}
+.orb{position:absolute;display:block;border-radius:50%;filter:blur(110px);will-change:transform}
+.orb-1{
+  width:46vw;height:46vw;top:-14vw;left:-10vw;opacity:.30;
+  background:radial-gradient(circle,var(--emerald) 0%,transparent 68%);
+  animation:drift-1 var(--dur-ambient) var(--ease-in-out-soft) infinite;
+}
+.orb-2{
+  width:38vw;height:38vw;top:52vh;right:-12vw;opacity:.16;
+  background:radial-gradient(circle,var(--gold) 0%,transparent 70%);
+  animation:drift-2 calc(var(--dur-ambient) * 1.55) var(--ease-in-out-soft) infinite;
+}
+@keyframes drift-1{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(6vw,5vh,0) scale(1.1)}}
+@keyframes drift-2{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-5vw,-7vh,0) scale(1.12)}}
+.page{position:relative;z-index:1}
+
+/* ---------- type ---------- */
+h1,h2,h3,.display{
+  font-family:"Bodoni Moda",Georgia,"Times New Roman",serif;
+  font-weight:500;
+  line-height:1.02;
+  letter-spacing:-.012em;
+  margin:0;
+  text-wrap:balance;
+}
+h1{font-size:clamp(2.7rem,1.5rem + 4.4vw,5.3rem);font-weight:600}
+h2{font-size:clamp(1.95rem,1.25rem + 2.4vw,3.15rem)}
+h3{font-size:clamp(1.2rem,1.05rem + .55vw,1.55rem);line-height:1.15}
+p{margin:0}
+.lede{
+  font-size:clamp(1.06rem,1rem + .42vw,1.3rem);
+  line-height:1.6;color:#CFCAC0;max-width:56ch;font-weight:300;
+}
+.small{font-size:.84rem;line-height:1.55;color:var(--muted)}
+.gilt{
+  background:var(--metal);
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+}
+@supports not (background-clip:text){.gilt{color:var(--gold);-webkit-text-fill-color:var(--gold)}}
+
+.tag{
+  display:inline-block;font-size:.7rem;font-weight:500;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--gold);
+}
+
+/* ---------- shell + section rhythm ---------- */
+.shell{width:var(--shell);margin-inline:auto}
+section{padding-block:clamp(5rem,10vw,9rem);position:relative}
+.rule{height:1px;background:linear-gradient(to right,transparent,var(--hair) 12%,var(--hair) 88%,transparent);border:0;margin:0}
+
+/* ---------- buttons ---------- */
+.btn{
+  --btn-bg:transparent;
+  display:inline-flex;align-items:center;gap:.65rem;
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:.775rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  padding:.95rem 1.6rem;border-radius:2px;text-decoration:none;cursor:pointer;
+  border:1px solid var(--hair);background:var(--btn-bg);color:var(--bone);
+  transition:transform var(--dur-micro) var(--ease-out-soft),
+             border-color var(--dur-micro) var(--ease-out-soft),
+             box-shadow var(--dur-micro) var(--ease-out-soft),
+             color var(--dur-micro) var(--ease-out-soft);
+}
+.btn svg{width:1em;height:1em;flex:none;transition:transform var(--dur-micro) var(--ease-out-soft)}
+.btn:hover{transform:translateY(-2px);border-color:rgba(200,162,74,.55)}
+.btn:hover svg{transform:translateX(4px)}
+.btn:active{transform:translateY(0);transition-duration:80ms}
+.btn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+
+.btn-gold{
+  border:1px solid transparent;color:#120E04;
+  background:var(--metal);background-size:200% 100%;background-position:0 0;
+  transition:transform var(--dur-micro) var(--ease-out-soft),
+             background-position 620ms var(--ease-out-soft),
+             box-shadow var(--dur-micro) var(--ease-out-soft);
+  box-shadow:0 0 0 1px rgba(245,228,174,.35) inset;
+}
+.btn-gold:hover{background-position:100% 0;box-shadow:0 10px 34px -14px rgba(200,162,74,.7),0 0 0 1px rgba(245,228,174,.5) inset}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background-color 400ms var(--ease-out-soft),
+             border-color 400ms var(--ease-out-soft),
+             backdrop-filter 400ms var(--ease-out-soft);
+  border-bottom:1px solid transparent;
+}
+.nav.is-stuck{
+  background:rgba(3,6,5,.78);
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);
+  border-bottom-color:var(--hair-soft);
+}
+.nav-in{width:var(--shell);margin-inline:auto;display:flex;align-items:center;gap:2rem;height:78px}
+.brand{display:flex;align-items:center;gap:.72rem;text-decoration:none;margin-right:auto}
+.brand img{width:40px;height:auto}
+.brand-txt{
+  font-family:"Bodoni Moda",serif;font-size:.94rem;font-weight:600;
+  letter-spacing:.13em;text-transform:uppercase;line-height:1.15;
+}
+.brand-txt span{display:block;font-size:.62rem;letter-spacing:.3em;color:var(--muted);font-family:"IBM Plex Sans",sans-serif;font-weight:400}
+.nav-links{display:flex;gap:2rem;list-style:none;margin:0;padding:0}
+.nav-links a{
+  text-decoration:none;font-size:.83rem;color:#BEB9AF;position:relative;padding-block:.4rem;
+  transition:color var(--dur-micro) var(--ease-out-soft);
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;
+  transition:transform 320ms var(--ease-out-soft);
+}
+.nav-links a:hover{color:var(--bone)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-links a:focus-visible{outline:2px solid var(--gold-hi);outline-offset:4px}
+.nav .btn{padding:.72rem 1.15rem;font-size:.685rem;white-space:nowrap}
+.nav-cta .lbl-short{display:none}
+.nav-toggle{display:none;background:none;border:1px solid var(--hair);border-radius:2px;padding:.55rem .6rem;cursor:pointer}
+.nav-toggle span{display:block;width:18px;height:1.5px;background:var(--gold);margin:3.5px 0}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100svh;padding-top:clamp(7rem,13vh,9rem);padding-bottom:0;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.hero-copy{width:var(--shell);margin-inline:auto;padding-bottom:clamp(2rem,5vh,3.5rem)}
+.hero h1{margin-block:1rem .1rem;max-width:17ch}
+.hero .lede{margin-top:1.6rem;max-width:52ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.1rem}
+
+/* staircase */
+.stair{position:relative;width:100%;line-height:0}
+.stair svg{width:100%;height:auto;display:block;overflow:visible}
+.stair-path{
+  fill:none;stroke:url(#goldline);stroke-width:2.4;
+  stroke-linejoin:miter;stroke-linecap:square;
+  filter:url(#glowline);
+}
+.stair-node{fill:var(--gold-hi)}
+.stair-label{
+  font-family:"Bodoni Moda",serif;font-size:23px;fill:#EBE5D6;letter-spacing:.01em;
+}
+.stair-sub{
+  font-family:"IBM Plex Sans",sans-serif;font-size:11px;fill:#8E8A80;
+  letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+}
+.stair-mobile{display:none}
+html.js .stair-anim{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 2400ms var(--ease-out-soft) 320ms forwards}
+html.js .stair-node,html.js .stair-label,html.js .stair-sub{opacity:0;animation:pop 700ms var(--ease-out-soft) forwards}
+html.js [data-step="1"]{animation-delay:1000ms}
+html.js [data-step="2"]{animation-delay:1560ms}
+html.js [data-step="3"]{animation-delay:2120ms}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.stair-node,.stair-label,.stair-sub{transform-box:fill-box;transform-origin:center}
+
+/* ---------- thesis ---------- */
+.thesis-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.25rem,3vw,2.5rem);margin-top:3.4rem}
+.panel{
+  position:relative;padding:clamp(1.7rem,3vw,2.6rem);border-radius:3px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.008) 46%,transparent);
+}
+.panel--dim{background:linear-gradient(160deg,rgba(255,255,255,.018),transparent 60%)}
+.panel--lit{
+  border-color:rgba(200,162,74,.32);
+  background:
+    linear-gradient(158deg,rgba(200,162,74,.10),rgba(15,138,89,.07) 44%,transparent 78%),
+    linear-gradient(0deg,var(--malachite),var(--malachite));
+}
+.panel--lit::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--gold-hi),transparent);opacity:.85;
+}
+.panel h3{margin-bottom:1.15rem}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:.8rem}
+.plist li{display:flex;gap:.8rem;font-size:.94rem;line-height:1.5;color:#C6C1B7}
+.plist .mk{flex:none;width:1.05rem;color:var(--muted-dim);font-size:.9rem;line-height:1.55}
+.panel--lit .plist li{color:#DCD7CC}
+.panel--lit .mk{color:var(--gold)}
+
+/* ---------- pillars ---------- */
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair-soft);margin-top:3.6rem;border:1px solid var(--hair-soft)}
+.pillar{
+  position:relative;overflow:hidden;background:#020403;
+  padding:clamp(1.8rem,2.6vw,2.4rem) clamp(1.4rem,2vw,1.9rem) clamp(2.2rem,3vw,2.8rem);
+  transition:background-color 420ms var(--ease-out-soft);
+}
+.pillar::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  transition:opacity 380ms var(--ease-out-soft);
+  background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(200,162,74,.13),transparent 62%);
+}
+@media (hover:hover) and (pointer:fine){.pillar:hover::before{opacity:1}.pillar:hover{background:#05100B}}
+.pillar-mark{width:30px;height:30px;color:var(--gold);opacity:.9;margin-bottom:1.5rem}
+.pillar h3{font-size:1.28rem;margin-bottom:.9rem}
+.pillar ul{list-style:none;margin:1.35rem 0 0;padding:0;display:grid;gap:.5rem}
+.pillar li{font-size:.82rem;color:var(--muted);padding-left:.95rem;position:relative}
+.pillar li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:1px;background:var(--gold);opacity:.75}
+.pillar p{font-size:.92rem;color:#B6B1A8;line-height:1.55}
+
+/* ---------- ledger ---------- */
+.ledger{margin-top:3.2rem;border-top:1px solid var(--hair)}
+.lrow{
+  display:grid;grid-template-columns:minmax(190px,.9fr) 2.2fr;gap:clamp(1rem,4vw,3rem);
+  padding-block:clamp(1.6rem,3vw,2.3rem);border-bottom:1px solid var(--hair-soft);
+}
+.lrow h3{font-size:1.3rem;font-style:italic;font-weight:400}
+.lrow ul{list-style:none;margin:0;padding:0;display:grid;gap:.9rem}
+.lrow li{
+  display:flex;gap:1rem;align-items:baseline;font-size:1rem;color:#D3CEC4;
+  padding-bottom:.9rem;border-bottom:1px dotted rgba(255,255,255,.07);
+}
+.lrow li:last-child{padding-bottom:0;border-bottom:0}
+.lrow li .dot{flex:none;width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:.85;transform:translateY(-3px)}
+
+/* ---------- numbers ---------- */
+.numbers{border-block:1px solid var(--hair);background:linear-gradient(180deg,rgba(15,138,89,.05),transparent 70%)}
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.5rem,3vw,2.5rem)}
+.num .fig{
+  font-family:"Bodoni Moda",serif;font-size:clamp(3.2rem,2rem + 4vw,5.6rem);font-weight:500;
+  line-height:.95;font-variant-numeric:tabular-nums;display:block;margin-bottom:.7rem;
+}
+.num p{font-size:.95rem;color:#B6B1A8;max-width:23ch;line-height:1.5}
+
+/* ---------- process ---------- */
+.steps{margin-top:3.4rem;display:grid;gap:0}
+.step{
+  display:grid;grid-template-columns:auto minmax(180px,.75fr) 2fr;gap:clamp(1.2rem,3vw,2.6rem);
+  align-items:start;padding-block:clamp(1.7rem,3vw,2.4rem);border-top:1px solid var(--hair-soft);
+}
+.step:last-child{border-bottom:1px solid var(--hair-soft)}
+.step-n{
+  font-family:"Bodoni Moda",serif;font-size:1rem;color:var(--gold);
+  font-variant-numeric:tabular-nums;padding-top:.3rem;min-width:2.4rem;
+}
+.step h3{font-size:1.45rem}
+.step p{color:#B6B1A8;font-size:.98rem;max-width:62ch}
+.step .when{display:block;margin-top:.55rem;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-dim)}
+
+/* ---------- audience ---------- */
+.aud{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.aud-card{
+  padding:1.8rem 1.5rem;border:1px solid rgba(255,255,255,.07);border-radius:3px;
+  background:linear-gradient(165deg,rgba(255,255,255,.03),transparent 70%);
+  transition:border-color var(--dur-micro) var(--ease-out-soft),transform var(--dur-micro) var(--ease-out-soft);
+}
+.aud-card:hover{border-color:rgba(200,162,74,.35);transform:translateY(-3px)}
+.aud-card h3{font-size:1.12rem;margin-bottom:.6rem}
+.aud-card p{font-size:.88rem;color:var(--muted)}
+
+/* ---------- cta ---------- */
+.cta{position:relative;overflow:hidden}
+.cta-in{
+  position:relative;border:1px solid var(--hair);border-radius:4px;overflow:hidden;
+  background:
+    radial-gradient(120% 140% at 50% -20%,rgba(15,138,89,.16),transparent 62%),
+    linear-gradient(180deg,rgba(255,255,255,.028),transparent 55%),
+    #030706;
+  padding:clamp(2.5rem,6vw,4.5rem);
+}
+.cta-in::before{content:"";position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+.cta-grid{display:grid;grid-template-columns:1fr minmax(320px,.9fr);gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.cta h2{max-width:14ch}
+.cta .lede{margin-top:1.3rem}
+.cta-crest{width:118px;margin-bottom:1.8rem;opacity:.95}
+
+form{display:grid;gap:1.05rem}
+.field{display:grid;gap:.42rem}
+label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:500}
+input,select,textarea{
+  font-family:inherit;font-size:.95rem;font-weight:300;color:var(--bone);
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:2px;
+  padding:.8rem .9rem;width:100%;
+  transition:border-color var(--dur-micro) var(--ease-out-soft),background-color var(--dur-micro) var(--ease-out-soft);
+}
+textarea{resize:vertical;min-height:92px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(200,162,74,.6);background:rgba(200,162,74,.05)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 18px) 52%,calc(100% - 13px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+select option{background:#0A0A09;color:var(--bone)}
+form .btn{justify-content:center;width:100%;margin-top:.35rem}
+.form-note{font-size:.76rem;color:var(--muted-dim);line-height:1.5}
+.form-done{
+  display:none;padding:2rem 1.5rem;text-align:center;border:1px solid rgba(200,162,74,.4);border-radius:3px;
+  background:rgba(15,138,89,.08);
+}
+.form-done h3{font-size:1.35rem;margin-bottom:.6rem}
+.form-done p{font-size:.92rem;color:#BEB9AF}
+.is-sent form{display:none}
+.is-sent .form-done{display:block}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--hair-soft);padding-block:clamp(3rem,6vw,4.5rem) 2.5rem}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2.5rem;align-items:start}
+.foot-lockup{width:180px;margin-bottom:1.4rem}
+.foot-grid h4{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 1.1rem;font-weight:600;font-family:"IBM Plex Sans",sans-serif}
+.foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:.65rem}
+.foot-grid a{text-decoration:none;font-size:.88rem;color:var(--muted);overflow-wrap:anywhere;transition:color var(--dur-micro) var(--ease-out-soft)}
+.foot-grid a:hover{color:var(--gold-hi)}
+.foot-base{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--hair-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.76rem;color:var(--muted-dim)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translate3d(0,20px,0);transition:opacity var(--dur-reveal) var(--ease-out-soft),transform var(--dur-reveal) var(--ease-out-soft)}
+.reveal.is-visible{opacity:1;transform:none}
+html:not(.js) .reveal{opacity:1;transform:none}
+.stagger>*{opacity:0;transform:translate3d(0,18px,0);transition:opacity var(--dur-reveal) var(--ease-out-soft),transform var(--dur-reveal) var(--ease-out-soft)}
+html:not(.js) .stagger>*{opacity:1;transform:none}
+.stagger.is-visible>*{opacity:1;transform:none}
+.stagger.is-visible>*:nth-child(2){transition-delay:calc(var(--stagger) * 1)}
+.stagger.is-visible>*:nth-child(3){transition-delay:calc(var(--stagger) * 2)}
+.stagger.is-visible>*:nth-child(4){transition-delay:calc(var(--stagger) * 3)}
+.stagger.is-visible>*:nth-child(5){transition-delay:calc(var(--stagger) * 4)}
+.stagger.is-visible>*:nth-child(6){transition-delay:calc(var(--stagger) * 5)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .pillars{grid-template-columns:repeat(2,1fr)}
+  .aud{grid-template-columns:repeat(2,1fr)}
+  .cta-grid{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  :root{--shell:min(1240px,100% - 2.25rem)}
+  .nav-links{
+    display:none;position:absolute;top:78px;left:0;right:0;flex-direction:column;gap:0;
+    background:rgba(3,6,5,.97);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+    border-block:1px solid var(--hair-soft);padding:.5rem 0;
+  }
+  .nav-links.is-open{display:flex}
+  .nav-links li{border-bottom:1px solid rgba(255,255,255,.05)}
+  .nav-links li:last-child{border-bottom:0}
+  .nav-links a{display:block;padding:1rem var(--gut);font-size:.95rem}
+  .nav-links a::after{display:none}
+  .nav-toggle{display:block;order:3}
+  .nav .btn{order:2;padding:.72rem 1rem;font-size:.66rem}
+  .nav-cta .lbl-full{display:none}
+  .nav-cta .lbl-short{display:inline}
+  .nav-in{gap:.6rem;height:70px}
+  .brand img{width:34px}
+  .nav-links{top:70px}
+  .thesis-grid{grid-template-columns:1fr}
+  .nums{grid-template-columns:repeat(2,1fr);gap:2.2rem 1.5rem}
+  .lrow,.step{grid-template-columns:1fr;gap:1.1rem}
+  .step-n{padding-top:0}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-grid>:first-child{grid-column:1/-1}
+  .stair-label,.stair-sub,.stair-node{display:none}
+  .stair svg{opacity:.9}
+  .stair-mobile{
+    display:flex;justify-content:space-between;width:var(--shell);margin:0 auto .9rem;
+    font-family:"Bodoni Moda",serif;font-size:1rem;color:#CFCAC0;
+  }
+}
+@media (max-width:560px){
+  .brand-txt{display:none}
+  .pillars{grid-template-columns:1fr}
+  .aud{grid-template-columns:1fr}
+  .hero-actions .btn{width:100%;justify-content:center}
+  .orb{filter:blur(60px)}
+  .orb-2{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  .reveal,.stagger>*{opacity:1 !important;transform:none !important}
+  html.js .stair-anim{stroke-dasharray:none;stroke-dashoffset:0}
+  html.js .stair-node,html.js .stair-label,html.js .stair-sub{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true">
+  <div class="grid"></div>
+  <span class="orb orb-1"></span>
+  <span class="orb orb-2"></span>
+</div>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">
+      <img src="om-crest.png" alt="" width="40">
+      <span class="brand-txt">Operation<span>Millionaire</span></span>
+    </a>
+    <ul class="nav-links" id="menu">
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#pillars">What we run</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#fit">Who it's for</a></li>
+    </ul>
+    <a class="btn btn-gold nav-cta" href="#start"><span class="lbl-full">Start your operation</span><span class="lbl-short">Start</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="page" id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-copy">
+    <span class="tag">A done-with-you ecosystem</span>
+    <h1>Scale your brand to five, six, and seven figures.</h1>
+    <p class="lede">Operation: Millionaire builds the systems that attract clients, convert leads, and create consistent revenue &mdash; without burnout. You get a full team. Not just advice.</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="#start">Start your operation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn" href="#services">See what's included</a>
+    </div>
+  </div>
+
+  <div class="stair-mobile" aria-hidden="true"><span>Five</span><span>Six</span><span>Seven figures</span></div>
+
+  <div class="stair" aria-hidden="true">
+    <svg viewBox="0 0 1440 236" preserveAspectRatio="none" role="presentation" focusable="false">
+      <defs>
+        <linearGradient id="goldline" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%" stop-color="#6B4F12"/>
+          <stop offset="28%" stop-color="#C8A24A"/>
+          <stop offset="62%" stop-color="#F5E4AE"/>
+          <stop offset="100%" stop-color="#F7EBC4"/>
+        </linearGradient>
+        <filter id="glowline" x="-25%" y="-120%" width="150%" height="360%">
+          <feGaussianBlur stdDeviation="5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g stroke="rgba(200,162,74,.14)" stroke-width="1">
+        <path d="M232 236V206M472 236V206M712 236V126M952 236V126M1192 236V46"/>
+      </g>
+      <path id="stairPath" class="stair-path stair-anim" d="M0 206 H472 V126 H952 V46 H1440"/>
+      <circle class="stair-node" data-step="1" cx="472" cy="206" r="4"/>
+      <circle class="stair-node" data-step="2" cx="952" cy="126" r="4"/>
+      <circle class="stair-node" data-step="3" cx="1440" cy="46" r="4"/>
+      <text class="stair-label" data-step="1" x="40"  y="190">Five figures</text>
+      <text class="stair-sub"   data-step="1" x="40"  y="170">Foundation</text>
+      <text class="stair-label" data-step="2" x="520" y="110">Six figures</text>
+      <text class="stair-sub"   data-step="2" x="520" y="90">Systems</text>
+      <text class="stair-label" data-step="3" x="1000" y="30">Seven figures</text>
+      <text class="stair-sub"   data-step="3" x="1000" y="10">Scale</text>
+    </svg>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ APPROACH ============ -->
+<section id="approach">
+  <div class="shell">
+    <div class="reveal">
+      <h2 style="max-width:22ch">Most founders don't need more advice. They need the work done.</h2>
+      <p class="lede" style="margin-top:1.6rem">You have already bought the course. You have already taken the notes. What is missing is a team that opens the file, builds the funnel, ships the campaign, and reports back on Friday.</p>
+    </div>
+
+    <div class="thesis-grid">
+      <div class="panel panel--dim reveal">
+        <h3>Advice on its own</h3>
+        <ul class="plist">
+          <li><span class="mk">&ndash;</span><span>A call, a worksheet, and a to-do list that becomes yours.</span></li>
+          <li><span class="mk">&ndash;</span><span>Strategy written for a generic business, not your numbers.</span></li>
+          <li><span class="mk">&ndash;</span><span>You are still the designer, the marketer, and the operator.</span></li>
+          <li><span class="mk">&ndash;</span><span>Momentum stops the week life gets busy.</span></li>
+        </ul>
+      </div>
+      <div class="panel panel--lit reveal">
+        <h3>Operation: Millionaire</h3>
+        <ul class="plist">
+          <li><span class="mk">&#9670;</span><span>One advisor who knows your business and a team of up to five assistants inside it.</span></li>
+          <li><span class="mk">&#9670;</span><span>Strategy, creative direction, and execution held under a single plan.</span></li>
+          <li><span class="mk">&#9670;</span><span>Brand, site, funnels, CRM, and campaigns built for you &mdash; you approve, we ship.</span></li>
+          <li><span class="mk">&#9670;</span><span>Systems that keep running when you step away from the desk.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILLARS ============ -->
+<section id="pillars">
+  <div class="shell">
+    <div class="reveal">
+      <span class="tag">Four operations, one team</span>
+      <h2 style="margin-top:1rem;max-width:19ch">Everything a growing brand needs, under one roof.</h2>
+    </div>
+
+    <div class="pillars">
+      <article class="pillar reveal">
+        <svg class="pillar-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M16 3 4 10v12l12 7 12-7V10L16 3Z"/><path d="M16 3v26M4 10l12 7 12-7"/>
+        </svg>
+        <h3>Creative direction</h3>
+        <p>The look, the language, and the story people meet before they meet you.</p>
+        <ul>
+          <li>Brand identity</li>
+          <li>Visual storytelling</li>
+          <li>Content positioning</li>
+        </ul>
+      </article>
+
+      <article class="pillar reveal">
+        <svg class="pillar-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M4 20V12M11 24V8M18 27V5M25 21V11"/><circle cx="25" cy="8" r="2.4"/>
+        </svg>
+        <h3>Marketing execution</h3>
+        <p>Campaigns planned, built, launched, and measured &mdash; not just recommended.</p>
+        <ul>
+          <li>Campaign planning</li>
+          <li>Visibility strategy</li>
+          <li>Audience expansion</li>
+        </ul>
+      </article>
+
+      <article class="pillar reveal">
+        <svg class="pillar-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <rect x="4" y="6" width="24" height="17" rx="2"/><path d="M10 28h12M16 23v5M9 16l4-4 4 4 6-6"/>
+        </svg>
+        <h3>Social media management</h3>
+        <p>A feed that runs on a calendar, answers your audience, and brings leads home.</p>
+        <ul>
+          <li>Content strategy</li>
+          <li>Posting and engagement</li>
+          <li>Lead-focused growth</li>
+        </ul>
+      </article>
+
+      <article class="pillar reveal">
+        <svg class="pillar-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <circle cx="16" cy="16" r="12"/><circle cx="16" cy="16" r="6"/><circle cx="16" cy="16" r="1.6" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3>Business coaching</h3>
+        <p>Private advisory on the decisions that actually move revenue this quarter.</p>
+        <ul>
+          <li>Systems and automation</li>
+          <li>Offers and funnels</li>
+          <li>Revenue infrastructure</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="shell">
+    <div class="reveal">
+      <h2 style="max-width:20ch">What your team actually builds.</h2>
+      <p class="lede" style="margin-top:1.5rem">Every engagement is scoped to where your business is now. Nothing here is an upsell for later.</p>
+    </div>
+
+    <div class="ledger">
+      <div class="lrow reveal">
+        <h3>Strategy &amp; advisory</h3>
+        <ul>
+          <li><span class="dot"></span><span>Business strategy and execution &mdash; the plan and the people who run it.</span></li>
+          <li><span class="dot"></span><span>One-on-one private advisory with a dedicated support team.</span></li>
+          <li><span class="dot"></span><span>Up to five assistants assigned to your business.</span></li>
+        </ul>
+      </div>
+      <div class="lrow reveal">
+        <h3>Brand &amp; creative</h3>
+        <ul>
+          <li><span class="dot"></span><span>Logo design and full brand identity creation.</span></li>
+          <li><span class="dot"></span><span>In-house branded merchandise, designed and produced.</span></li>
+        </ul>
+      </div>
+      <div class="lrow reveal">
+        <h3>Web &amp; systems</h3>
+        <ul>
+          <li><span class="dot"></span><span>Website design, funnels, and landing pages.</span></li>
+          <li><span class="dot"></span><span>CRM setup and automation systems that follow up for you.</span></li>
+        </ul>
+      </div>
+      <div class="lrow reveal">
+        <h3>Marketing &amp; growth</h3>
+        <ul>
+          <li><span class="dot"></span><span>Social media management and content execution.</span></li>
+          <li><span class="dot"></span><span>Marketing campaigns and launch strategy.</span></li>
+          <li><span class="dot"></span><span>Offer creation and scaling systems.</span></li>
+        </ul>
+      </div>
+      <div class="lrow reveal">
+        <h3>Funding</h3>
+        <ul>
+          <li><span class="dot"></span><span>Grant research and grant writing support.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NUMBERS ============ -->
+<section class="numbers">
+  <div class="shell">
+    <div class="nums stagger">
+      <div class="num">
+        <span class="fig gilt" data-count="5">5</span>
+        <p>Assistants assigned to work inside your business.</p>
+      </div>
+      <div class="num">
+        <span class="fig gilt" data-count="11">11</span>
+        <p>Services delivered by one team, with one point of contact.</p>
+      </div>
+      <div class="num">
+        <span class="fig gilt" data-count="1">1</span>
+        <p>Private advisor who knows your numbers by name.</p>
+      </div>
+      <div class="num">
+        <span class="fig gilt" data-count="7">7</span>
+        <p>Figures &mdash; the ceiling we build the infrastructure for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process">
+  <div class="shell">
+    <div class="reveal">
+      <h2 style="max-width:19ch">Four moves from guessing to operating.</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step-n">01</span>
+        <h3>Discovery call</h3>
+        <div>
+          <p>We map where revenue actually comes from today and where it stalls. No pitch deck, no worksheet &mdash; a straight read on the business.</p>
+          <span class="when">Week one</span>
+        </div>
+      </div>
+      <div class="step reveal">
+        <span class="step-n">02</span>
+        <h3>Your operation blueprint</h3>
+        <div>
+          <p>Offers, brand, funnels, and systems written down as one plan, with owners and dates against every line so nothing lives only in your head.</p>
+          <span class="when">Weeks one to two</span>
+        </div>
+      </div>
+      <div class="step reveal">
+        <span class="step-n">03</span>
+        <h3>Team deployed</h3>
+        <div>
+          <p>Your advisor and up to five assistants start executing. Designs, pages, campaigns, and automations come to you for approval &mdash; then go live.</p>
+          <span class="when">Week three onward</span>
+        </div>
+      </div>
+      <div class="step reveal">
+        <span class="step-n">04</span>
+        <h3>Scale and optimise</h3>
+        <div>
+          <p>Weekly reporting, campaign iteration, and new offers built as the numbers move. The plan gets rewritten by results, not by guesswork.</p>
+          <span class="when">Ongoing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIT ============ -->
+<section id="fit">
+  <div class="shell">
+    <div class="reveal">
+      <h2 style="max-width:20ch">Built for owners who are done doing it alone.</h2>
+    </div>
+    <div class="aud stagger">
+      <div class="aud-card">
+        <h3>Aspiring entrepreneurs and startups</h3>
+        <p>You have the idea and the drive. You need the structure that turns it into a business.</p>
+      </div>
+      <div class="aud-card">
+        <h3>Coaches, creators, and influencers</h3>
+        <p>You have an audience. We turn attention into offers, funnels, and repeat revenue.</p>
+      </div>
+      <div class="aud-card">
+        <h3>Boutique and service-based owners</h3>
+        <p>You are booked but capped. We rebuild the brand and the systems around it to lift the ceiling.</p>
+      </div>
+      <div class="aud-card">
+        <h3>Businesses tired of guessing</h3>
+        <p>You have tried the courses and the freelancers. You want one team accountable for the outcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="start">
+  <div class="shell">
+    <div class="cta-in reveal">
+      <div class="cta-grid">
+        <div>
+          <img class="cta-crest" src="om-crest.png" alt="" width="118">
+          <h2>Start your operation.</h2>
+          <p class="lede">Tell us where the business is and what is in the way. If we are the right team for it, we will come back with a plan &mdash; and if we are not, we will tell you that too.</p>
+          <p class="small" style="margin-top:1.8rem">Applications are reviewed personally. Expect a reply within two business days.</p>
+        </div>
+
+        <div id="applyWrap">
+          <form id="applyForm" novalidate>
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="business">Business or brand</label>
+              <input id="business" name="business" type="text" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="stage">Where you are now</label>
+              <select id="stage" name="stage">
+                <option value="">Select a stage</option>
+                <option>Pre-launch &mdash; building the idea</option>
+                <option>Earning, under five figures a month</option>
+                <option>Consistent five figures</option>
+                <option>Six figures and scaling</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="need">What is in the way</label>
+              <textarea id="need" name="need" placeholder="A sentence or two is plenty."></textarea>
+            </div>
+            <button class="btn btn-gold" type="submit">Send my application
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="form-note">We use your details to review your application. Nothing is shared or sold.</p>
+          </form>
+          <div class="form-done" role="status">
+            <h3 class="gilt">Application received</h3>
+            <p>Thank you. Your application is with the team and you will hear back within two business days.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <img class="foot-lockup" src="om-lockup.png" alt="Operation: Millionaire" width="180">
+        <p class="small" style="max-width:34ch">A done-with-you ecosystem for entrepreneurs who want real results. Strategy, execution, creative direction, and systems &mdash; so you are not doing this alone.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#pillars">What we run</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#fit">Who it's for</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="#start">Start your operation</a></li>
+          <li><a href="mailto:hello@operationmillionaire.com">hello@operationmillionaire.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>&copy; <span id="yr">2026</span> Operation: Millionaire. All rights reserved.</span>
+      <span>Privacy &nbsp;&middot;&nbsp; Terms</span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /.page -->
+
+<script>
+(function(){
+  var d = document, root = d.documentElement;
+  root.classList.add('js');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  d.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* staircase draw length */
+  var sp = d.getElementById('stairPath');
+  if (sp && sp.getTotalLength) {
+    var len = Math.ceil(sp.getTotalLength());
+    sp.style.setProperty('--len', len);
+  }
+
+  /* sticky nav */
+  var nav = d.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('is-stuck', window.scrollY > 24); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* mobile menu */
+  var tog = d.getElementById('navToggle'), menu = d.getElementById('menu');
+  tog.addEventListener('click', function(){
+    var open = menu.classList.toggle('is-open');
+    tog.setAttribute('aria-expanded', open ? 'true' : 'false');
+    tog.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  menu.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') {
+      menu.classList.remove('is-open');
+      tog.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* count-up */
+  function countUp(el){
+    var target = parseFloat(el.dataset.count), start = performance.now(), dur = 1500;
+    function frame(now){
+      var t = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased);
+      if (t < 1) requestAnimationFrame(frame);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* reveals */
+  var items = d.querySelectorAll('.reveal, .stagger');
+  if (reduced || !('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(items, function(el){ el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-visible');
+        Array.prototype.forEach.call(en.target.querySelectorAll('[data-count]'), countUp);
+        io.unobserve(en.target);
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    Array.prototype.forEach.call(items, function(el){ io.observe(el); });
+    setTimeout(function(){
+      Array.prototype.forEach.call(items, function(el){ el.classList.add('is-visible'); });
+    }, 4000);
+  }
+
+  /* cursor sheen on pillars */
+  if (fine) {
+    var wrap = d.querySelector('.pillars');
+    if (wrap) {
+      var raf = null, ev = null;
+      wrap.addEventListener('pointermove', function(e){
+        ev = e;
+        if (raf) return;
+        raf = requestAnimationFrame(function(){
+          var card = ev.target.closest ? ev.target.closest('.pillar') : null;
+          if (card) {
+            var r = card.getBoundingClientRect();
+            card.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+            card.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+          }
+          raf = null;
+        });
+      });
+    }
+  }
+
+  /* form */
+  var form = d.getElementById('applyForm'), wrapEl = d.getElementById('applyWrap');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = d.getElementById('name'), email = d.getElementById('email');
+    if (!name.value.trim()) { name.focus(); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) { email.focus(); return; }
+    wrapEl.classList.add('is-sent');
+    wrapEl.querySelector('.form-done').scrollIntoView({block:'center', behavior:'smooth'});
+  });
+})();
+</script>
+</body>
+</html>
