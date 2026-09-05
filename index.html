@@ -457,6 +457,22 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
   .aud{grid-template-columns:repeat(2,1fr)}
   .cta-grid{grid-template-columns:1fr}
 }
+@media (max-width:900px){
+  /* a 72px grid is almost invisible on a phone — tighten it and lift the lines */
+  .ambient .grid{
+    background-image:
+      linear-gradient(to right,rgba(200,162,74,.09) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(200,162,74,.09) 1px,transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(130% 78% at 50% 24%,#000 26%,transparent 92%);
+    mask-image:radial-gradient(130% 78% at 50% 24%,#000 26%,transparent 92%);
+    animation-name:grid-pan-sm;
+  }
+  .orb-1{width:96vw;height:96vw;top:-26vw;left:-24vw;opacity:.4}
+  .orb-2{width:82vw;height:82vw;top:44vh;right:-30vw;opacity:.26}
+}
+@keyframes grid-pan-sm{from{background-position:0 0,0 0}to{background-position:44px 44px,44px 44px}}
+
 @media (max-width:860px){
   :root{--shell:min(1240px,100% - 2.25rem)}
   .nav-links{
@@ -477,8 +493,17 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
   .brand img{width:34px}
   .nav-links{top:70px}
   .thesis-grid{grid-template-columns:1fr}
+  .hero{min-height:auto;padding-bottom:0}
   .hero-grid{grid-template-columns:1fr}
-  .hero-portrait{display:none}
+  .hero-portrait{
+    height:clamp(300px,44svh,420px);margin-top:2.25rem;
+    border:1px solid var(--hair-soft);border-radius:3px;
+  }
+  .hero-portrait img{object-position:72% 10%}
+  .hero-portrait::before{display:none}
+  .hero-portrait::after{
+    background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 58%,rgba(0,0,0,.72) 100%);
+  }
   .fit-head{grid-template-columns:1fr}
   .fit-portrait{display:none}
   .break-media{height:clamp(320px,54vh,440px)}
@@ -503,8 +528,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
   .pillars{grid-template-columns:1fr}
   .aud{grid-template-columns:1fr}
   .hero-actions .btn{width:100%;justify-content:center}
-  .orb{filter:blur(60px)}
-  .orb-2{display:none}
+  .orb{filter:blur(64px)}
 }
 
 @media (prefers-reduced-motion:reduce){
