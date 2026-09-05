@@ -293,6 +293,23 @@ html.js [data-step="3"]{animation-delay:2120ms}
 .fit-portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 45%)}
 
 /* ---------- thesis ---------- */
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.2vw,1.6rem);margin-top:clamp(2.5rem,5vw,3.6rem);align-items:stretch}
+.mode{display:flex;flex-direction:column}
+.mode-tag{
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  color:var(--muted-dim);margin-bottom:1.1rem;display:block;
+}
+.panel--lit .mode-tag{color:var(--gold)}
+.mode h3{font-size:clamp(1.2rem,1.05rem + .5vw,1.5rem);margin-bottom:.9rem}
+.mode>p{font-size:.94rem;line-height:1.55;color:#B6B1A8;flex:1}
+.panel--lit .mode>p{color:#D3CEC4}
+.mode-foot{
+  margin-top:1.6rem;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.08);
+  font-size:.86rem;line-height:1.5;color:var(--muted);
+}
+.mode-foot b{display:block;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-dim);font-weight:600;margin-bottom:.4rem}
+.panel--lit .mode-foot{border-top-color:rgba(200,162,74,.28);color:#CFCAC0}
+.panel--lit .mode-foot b{color:var(--gold)}
 .thesis-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.25rem,3vw,2.5rem);margin-top:3.4rem}
 .panel{
   position:relative;padding:clamp(1.7rem,3vw,2.6rem);border-radius:3px;overflow:hidden;
@@ -346,9 +363,17 @@ html.js [data-step="3"]{animation-delay:2120ms}
 .lrow h3{font-size:1.3rem;font-style:italic;font-weight:400}
 .lrow ul{list-style:none;margin:0;padding:0;display:grid;gap:.9rem}
 .lrow li{
-  display:flex;gap:1rem;align-items:baseline;font-size:1rem;color:#D3CEC4;
-  padding-bottom:.9rem;border-bottom:1px dotted rgba(255,255,255,.07);
+  display:flex;gap:1rem;align-items:baseline;
+  padding-bottom:1rem;border-bottom:1px dotted rgba(255,255,255,.07);
 }
+.lrow li b{display:block;font-size:1.02rem;font-weight:500;color:#EAE5DB;line-height:1.35}
+.lrow li span.note{display:block;font-size:.86rem;color:var(--muted);line-height:1.5;margin-top:.28rem}
+.ledger-count{
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;
+  margin-top:clamp(2.2rem,4vw,3rem);font-size:.78rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted-dim);
+}
+.ledger-count strong{color:var(--gold);font-weight:600}
 .lrow li:last-child{padding-bottom:0;border-bottom:0}
 .lrow li .dot{flex:none;width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:.85;transform:translateY(-3px)}
 
@@ -452,6 +477,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 
 /* ---------- responsive ---------- */
 @media (max-width:1080px){
+  .modes{grid-template-columns:1fr}
   .fit-head{grid-template-columns:1fr .8fr}
   .pillars{grid-template-columns:repeat(2,1fr)}
   .aud{grid-template-columns:repeat(2,1fr)}
@@ -493,6 +519,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
   .brand img{width:34px}
   .nav-links{top:70px}
   .thesis-grid{grid-template-columns:1fr}
+  .modes{grid-template-columns:1fr}
   .hero{min-height:auto;padding-bottom:0}
   .hero-grid{grid-template-columns:1fr}
   .hero-portrait{
@@ -554,7 +581,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
       <span class="brand-txt">Operation<span>Millionaire</span></span>
     </a>
     <ul class="nav-links" id="menu">
-      <li><a href="#approach">Approach</a></li>
+      <li><a href="#approach">Done with you</a></li>
       <li><a href="#pillars">What we run</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#process">Process</a></li>
@@ -629,28 +656,31 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 <section id="approach">
   <div class="shell">
     <div class="reveal">
-      <h2 style="max-width:22ch">Most founders don't need more advice. They need the work done.</h2>
-      <p class="lede" style="margin-top:1.6rem">You have already bought the course. You have already taken the notes. What is missing is a team that opens the file, builds the funnel, ships the campaign, and reports back on Friday.</p>
+      <span class="tag">The model</span>
+      <h2 style="margin-top:1rem;max-width:20ch">Done with you. Not done alone, not handed off.</h2>
+      <p class="lede" style="margin-top:1.6rem">Operation: Millionaire is a done-with-you ecosystem built for entrepreneurs who want real results. We combine strategy, execution, creative direction, and systems so you are not doing this alone. You get a full team. Not just advice.</p>
     </div>
 
-    <div class="thesis-grid">
-      <div class="panel panel--dim reveal">
-        <h3>Advice on its own</h3>
-        <ul class="plist">
-          <li><span class="mk">&ndash;</span><span>A call, a worksheet, and a to-do list that becomes yours.</span></li>
-          <li><span class="mk">&ndash;</span><span>Strategy written for a generic business, not your numbers.</span></li>
-          <li><span class="mk">&ndash;</span><span>You are still the designer, the marketer, and the operator.</span></li>
-          <li><span class="mk">&ndash;</span><span>Momentum stops the week life gets busy.</span></li>
-        </ul>
+    <div class="modes">
+      <div class="panel panel--dim mode reveal">
+        <span class="mode-tag">Do it yourself</span>
+        <h3>You buy the plan</h3>
+        <p>The course, the templates, the saved posts. The information is good and the plan is sound &mdash; but at eleven at night you are still the strategist, the designer, the marketer, and the person building the funnel.</p>
+        <div class="mode-foot"><b>Who does the work</b>You, on top of running the business.</div>
       </div>
-      <div class="panel panel--lit reveal">
-        <h3>Operation: Millionaire</h3>
-        <ul class="plist">
-          <li><span class="mk">&#9670;</span><span>One advisor who knows your business and a team of up to five assistants inside it.</span></li>
-          <li><span class="mk">&#9670;</span><span>Strategy, creative direction, and execution held under a single plan.</span></li>
-          <li><span class="mk">&#9670;</span><span>Brand, site, funnels, CRM, and campaigns built for you &mdash; you approve, we ship.</span></li>
-          <li><span class="mk">&#9670;</span><span>Systems that keep running when you step away from the desk.</span></li>
-        </ul>
+
+      <div class="panel panel--dim mode reveal">
+        <span class="mode-tag">Done for you</span>
+        <h3>Someone runs it for you</h3>
+        <p>The work leaves your desk and comes back finished. It moves &mdash; but the thinking happens somewhere you cannot see, and the machine belongs to whoever built it rather than to your business.</p>
+        <div class="mode-foot"><b>Who does the work</b>An outside team, at arm's length.</div>
+      </div>
+
+      <div class="panel panel--lit mode reveal">
+        <span class="mode-tag">Done with you &mdash; our model</span>
+        <h3>We build inside your business</h3>
+        <p>You keep ownership and the final say. A private advisor sets the strategy with you, and up to five assistants build it alongside you &mdash; brand, website, funnels, CRM, campaigns, offers. You approve; the team ships. What gets built stays yours.</p>
+        <div class="mode-foot"><b>Who does the work</b>Your advisor, your assistants, and you &mdash; on one plan.</div>
       </div>
     </div>
 
@@ -729,48 +759,51 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 <section id="services">
   <div class="shell">
     <div class="reveal">
-      <h2 style="max-width:20ch">What your team actually builds.</h2>
-      <p class="lede" style="margin-top:1.5rem">Every engagement is scoped to where your business is now. Nothing here is an upsell for later.</p>
+      <span class="tag">Our services include</span>
+      <h2 style="margin-top:1rem;max-width:20ch">What your team actually builds.</h2>
+      <p class="lede" style="margin-top:1.5rem">Eleven services, delivered by one team under one plan. Every engagement is scoped to where your business is now &mdash; nothing here is held back as an upsell for later.</p>
     </div>
 
     <div class="ledger">
       <div class="lrow reveal">
         <h3>Strategy &amp; advisory</h3>
         <ul>
-          <li><span class="dot"></span><span>Business strategy and execution &mdash; the plan and the people who run it.</span></li>
-          <li><span class="dot"></span><span>One-on-one private advisory with a dedicated support team.</span></li>
-          <li><span class="dot"></span><span>Up to five assistants assigned to your business.</span></li>
+          <li><span class="dot"></span><div><b>Business strategy and execution</b><span class="note">The plan, and the people who run it.</span></div></li>
+          <li><span class="dot"></span><div><b>1-on-1 private advisory with a dedicated support team</b><span class="note">One advisor who knows your numbers, backed by the team who build.</span></div></li>
+          <li><span class="dot"></span><div><b>Up to 5 assistants assigned to your business</b><span class="note">Working inside your business, not on a queue behind other clients.</span></div></li>
         </ul>
       </div>
       <div class="lrow reveal">
         <h3>Brand &amp; creative</h3>
         <ul>
-          <li><span class="dot"></span><span>Logo design and full brand identity creation.</span></li>
-          <li><span class="dot"></span><span>In-house branded merchandise, designed and produced.</span></li>
+          <li><span class="dot"></span><div><b>Logo design and full brand identity creation</b><span class="note">Marks, palette, type, and the rules that keep it consistent.</span></div></li>
+          <li><span class="dot"></span><div><b>In-house branded merchandise creation</b><span class="note">Designed and produced in house, not outsourced to a print shop.</span></div></li>
         </ul>
       </div>
       <div class="lrow reveal">
         <h3>Web &amp; systems</h3>
         <ul>
-          <li><span class="dot"></span><span>Website design, funnels, and landing pages.</span></li>
-          <li><span class="dot"></span><span>CRM setup and automation systems that follow up for you.</span></li>
+          <li><span class="dot"></span><div><b>Website design, funnels, and landing pages</b><span class="note">Built to convert, not just to look finished.</span></div></li>
+          <li><span class="dot"></span><div><b>CRM setup and automation systems</b><span class="note">Follow-up that runs whether or not you are at the desk.</span></div></li>
         </ul>
       </div>
       <div class="lrow reveal">
         <h3>Marketing &amp; growth</h3>
         <ul>
-          <li><span class="dot"></span><span>Social media management and content execution.</span></li>
-          <li><span class="dot"></span><span>Marketing campaigns and launch strategy.</span></li>
-          <li><span class="dot"></span><span>Offer creation and scaling systems.</span></li>
+          <li><span class="dot"></span><div><b>Social media management and content execution</b><span class="note">Strategy, calendar, posting, and engagement &mdash; handled.</span></div></li>
+          <li><span class="dot"></span><div><b>Marketing campaigns and launch strategy</b><span class="note">Planned, built, launched, and measured against real numbers.</span></div></li>
+          <li><span class="dot"></span><div><b>Offer creation and scaling systems</b><span class="note">What you sell, how it is priced, and how it grows without breaking.</span></div></li>
         </ul>
       </div>
       <div class="lrow reveal">
         <h3>Funding</h3>
         <ul>
-          <li><span class="dot"></span><span>Grant research and grant writing support.</span></li>
+          <li><span class="dot"></span><div><b>Grant research and grant writing support</b><span class="note">Finding the funding you qualify for, and writing the application.</span></div></li>
         </ul>
       </div>
     </div>
+
+    <p class="ledger-count reveal"><span><strong>11 services</strong> &nbsp;&middot;&nbsp; one team &nbsp;&middot;&nbsp; one point of contact</span><span>Done with you, start to finish</span></p>
   </div>
 </section>
 
@@ -953,7 +986,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
       <div>
         <h4>Explore</h4>
         <ul>
-          <li><a href="#approach">Approach</a></li>
+          <li><a href="#approach">Done with you</a></li>
           <li><a href="#pillars">What we run</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#process">Process</a></li>
