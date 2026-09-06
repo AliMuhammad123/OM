@@ -28,10 +28,6 @@
   --emerald:#0F8A59;
   --emerald-hi:#1FCB86;
 
-  --cream:#F3EDE1;
-  --cream-2:#EAE2D2;
-  --ink:#171208;
-
   --bone:#F0ECE3;
   --muted:#97938A;
   --muted-dim:#6B6860;
@@ -237,41 +233,29 @@ html.js [data-step="3"]{animation-delay:2120ms}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .stair-node,.stair-label,.stair-sub{transform-box:fill-box;transform-origin:center}
 
-/* ---------- light chapter (services / numbers / process) ---------- */
-.light{
-  background:var(--cream);
-  color:var(--ink);
-  --bone:var(--ink);
-  --muted:#6B6255;
-  --muted-dim:#8C8376;
-  --gold:#7A5C18;
-  --gold-hi:#5E4712;
-  --hair:rgba(23,18,8,.20);
-  --hair-soft:rgba(23,18,8,.11);
-  --metal:linear-gradient(104deg,#6B4F12 0%,#8A6A22 40%,#5E4712 100%);
-}
-.light::before{
-  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+/* ---------- deep chapters : tonal variation inside the dark ----------
+   Same theme throughout — some sections sit on a malachite field
+   instead of true black, so the scroll breathes without splitting. */
+.deep{
   background:
-    radial-gradient(90% 55% at 15% 0%,rgba(11,95,61,.055),transparent 62%),
-    radial-gradient(70% 50% at 100% 100%,rgba(122,92,24,.06),transparent 60%);
+    radial-gradient(110% 65% at 50% 0%,rgba(15,138,89,.085),transparent 58%),
+    linear-gradient(180deg,#030B08 0%,#06140F 44%,#050F0B 74%,#020605 100%);
+  border-block:1px solid var(--hair-soft);
 }
-.light>*{position:relative;z-index:1}
-.light .lede{color:#4C4436}
-.light .lrow li{border-bottom-color:rgba(23,18,8,.13)}
-.light .lrow li b{color:var(--ink)}
-.light .step p,.light .num p{color:#4C4436}
-.light .gilt{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#0B5F3D;-webkit-text-fill-color:#0B5F3D}
-.light .num .fig{color:#0B5F3D}
-
-/* boundaries between the dark and the light */
-#services.light{border-top:1px solid rgba(200,162,74,.5)}
-#process.light{border-bottom:1px solid rgba(200,162,74,.5)}
-.numbers.light{
-  background:var(--cream-2);
-  border-block:1px solid rgba(23,18,8,.14);
+.deep::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(to right,rgba(200,162,74,.06) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(200,162,74,.06) 1px,transparent 1px);
+  background-size:58px 58px;
+  -webkit-mask-image:radial-gradient(90% 70% at 50% 40%,#000 10%,transparent 82%);
+  mask-image:radial-gradient(90% 70% at 50% 40%,#000 10%,transparent 82%);
 }
-.numbers.light::before{background:none}
+.deep::after{
+  content:"";position:absolute;left:0;right:0;top:0;height:1px;z-index:1;pointer-events:none;
+  background:linear-gradient(to right,transparent,rgba(200,162,74,.5) 30%,rgba(200,162,74,.5) 70%,transparent);
+}
+.deep>*{position:relative;z-index:2}
 
 /* ---------- photography ---------- */
 .ph{position:relative;overflow:hidden;background:#050505}
@@ -419,7 +403,12 @@ html.js [data-step="3"]{animation-delay:2120ms}
 .lrow li .dot{flex:none;width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:.85;transform:translateY(-3px)}
 
 /* ---------- numbers ---------- */
-.numbers{border-block:1px solid var(--hair);background:linear-gradient(180deg,rgba(15,138,89,.05),transparent 70%)}
+.numbers{
+  border-block:1px solid var(--hair);
+  background:
+    radial-gradient(80% 130% at 50% 50%,rgba(15,138,89,.15),transparent 66%),
+    linear-gradient(180deg,#04100C,#081C14 52%,#04100C);
+}
 .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.5rem,3vw,2.5rem)}
 .num .fig{
   font-family:"Bodoni Moda",serif;font-size:clamp(3.2rem,2rem + 4vw,5.6rem);font-weight:500;
@@ -797,7 +786,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 </section>
 
 <!-- ============ SERVICES ============ -->
-<section id="services" class="light">
+<section id="services" class="deep">
   <div class="shell">
     <div class="reveal">
       <span class="tag">Our services include</span>
@@ -849,7 +838,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 </section>
 
 <!-- ============ NUMBERS ============ -->
-<section class="numbers light">
+<section class="numbers">
   <div class="shell">
     <div class="nums stagger">
       <div class="num">
@@ -873,7 +862,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 </section>
 
 <!-- ============ PROCESS ============ -->
-<section id="process" class="light">
+<section id="process">
   <div class="shell">
     <div class="reveal">
       <h2 style="max-width:19ch">Four moves from guessing to operating.</h2>
@@ -930,7 +919,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 </section>
 
 <!-- ============ FIT ============ -->
-<section id="fit">
+<section id="fit" class="deep">
   <div class="shell">
     <div class="fit-head reveal">
       <div>
