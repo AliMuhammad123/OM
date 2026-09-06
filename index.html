@@ -28,6 +28,10 @@
   --emerald:#0F8A59;
   --emerald-hi:#1FCB86;
 
+  --cream:#F3EDE1;
+  --cream-2:#EAE2D2;
+  --ink:#171208;
+
   --bone:#F0ECE3;
   --muted:#97938A;
   --muted-dim:#6B6860;
@@ -166,9 +170,10 @@ section{padding-block:clamp(5rem,10vw,9rem);position:relative}
   border-bottom:1px solid transparent;
 }
 .nav.is-stuck{
-  background:rgba(3,6,5,.78);
+  background:rgba(3,6,5,.93);
   -webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);
-  border-bottom-color:var(--hair-soft);
+  border-bottom-color:rgba(200,162,74,.16);
+  box-shadow:0 10px 30px -22px rgba(0,0,0,.9);
 }
 .nav-in{width:var(--shell);margin-inline:auto;display:flex;align-items:center;gap:2rem;height:78px}
 .brand{display:flex;align-items:center;gap:.72rem;text-decoration:none;margin-right:auto}
@@ -231,6 +236,42 @@ html.js [data-step="3"]{animation-delay:2120ms}
 @keyframes draw{to{stroke-dashoffset:0}}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .stair-node,.stair-label,.stair-sub{transform-box:fill-box;transform-origin:center}
+
+/* ---------- light chapter (services / numbers / process) ---------- */
+.light{
+  background:var(--cream);
+  color:var(--ink);
+  --bone:var(--ink);
+  --muted:#6B6255;
+  --muted-dim:#8C8376;
+  --gold:#7A5C18;
+  --gold-hi:#5E4712;
+  --hair:rgba(23,18,8,.20);
+  --hair-soft:rgba(23,18,8,.11);
+  --metal:linear-gradient(104deg,#6B4F12 0%,#8A6A22 40%,#5E4712 100%);
+}
+.light::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(90% 55% at 15% 0%,rgba(11,95,61,.055),transparent 62%),
+    radial-gradient(70% 50% at 100% 100%,rgba(122,92,24,.06),transparent 60%);
+}
+.light>*{position:relative;z-index:1}
+.light .lede{color:#4C4436}
+.light .lrow li{border-bottom-color:rgba(23,18,8,.13)}
+.light .lrow li b{color:var(--ink)}
+.light .step p,.light .num p{color:#4C4436}
+.light .gilt{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#0B5F3D;-webkit-text-fill-color:#0B5F3D}
+.light .num .fig{color:#0B5F3D}
+
+/* boundaries between the dark and the light */
+#services.light{border-top:1px solid rgba(200,162,74,.5)}
+#process.light{border-bottom:1px solid rgba(200,162,74,.5)}
+.numbers.light{
+  background:var(--cream-2);
+  border-block:1px solid rgba(23,18,8,.14);
+}
+.numbers.light::before{background:none}
 
 /* ---------- photography ---------- */
 .ph{position:relative;overflow:hidden;background:#050505}
@@ -756,7 +797,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 </section>
 
 <!-- ============ SERVICES ============ -->
-<section id="services">
+<section id="services" class="light">
   <div class="shell">
     <div class="reveal">
       <span class="tag">Our services include</span>
@@ -808,7 +849,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 </section>
 
 <!-- ============ NUMBERS ============ -->
-<section class="numbers">
+<section class="numbers light">
   <div class="shell">
     <div class="nums stagger">
       <div class="num">
@@ -832,7 +873,7 @@ html:not(.js) .stagger>*{opacity:1;transform:none}
 </section>
 
 <!-- ============ PROCESS ============ -->
-<section id="process">
+<section id="process" class="light">
   <div class="shell">
     <div class="reveal">
       <h2 style="max-width:19ch">Four moves from guessing to operating.</h2>
